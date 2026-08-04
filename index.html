@@ -3,50 +3,98 @@
 <style>
   body {
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    max-width: 420px;
-    margin: 0 auto;
-    padding: 24px 16px 48px;
+    background: #fbf3c9;
+    margin: 0;
+    padding: 16px 10px 40px;
     line-height: 1.5;
   }
+  .page-box {
+    max-width: 440px;
+    margin: 0 auto;
+    background: #d9d9d6;
+    border: 1px solid #aaa9a2;
+    padding: 14px 14px 18px;
+  }
   h1 {
-    font-size: 1.4rem;
-    margin-bottom: 4px;
+    font-size: 1.35rem;
+    margin: 0 0 4px;
+    color: #1a1a1a;
+    font-weight: 800;
   }
-  input[type="text"] {
-    font-size: 1rem;
-    padding: 8px 10px;
-    width: 60%;
+  h1 + p {
+    color: #55534c;
+    font-size: 0.85rem;
+    margin: 0 0 14px;
   }
-  button {
-    font-size: 1rem;
-    padding: 8px 14px;
+  h2 {
+    font-size: 0.98rem;
+    margin: 26px 0 8px;
+    color: #262620;
+    font-weight: 700;
+  }
+  .intro-text {
+    color: #55534c;
+    font-size: 0.85rem;
+  }
+  .tool-box {
+    background: #efeee9;
+    border: 1px solid #c6c4ba;
+    padding: 10px;
+    font-size: 0.82rem;
+  }
+  .tool-box input[type="text"] {
+    font-size: 0.82rem;
+    padding: 5px 6px;
+    width: 55%;
+  }
+  .tool-box button {
+    font-size: 0.8rem;
+    padding: 5px 9px;
     cursor: pointer;
+  }
+  .tool-box ul, .tool-box ol {
+    padding-left: 16px;
+    margin: 6px 0;
+    color: #3a3934;
+  }
+  .tool-box hr {
+    border: none;
+    border-top: 1px solid #c6c4ba;
+    margin: 8px 0;
   }
   #draw-btn {
     width: 100%;
-    padding: 12px;
+    padding: 7px;
     font-weight: bold;
+    background: #c8501f;
+    color: #fff;
+    border: 1px solid #a03f18;
   }
   #reset-btn {
     width: 100%;
-  }
-  ul, ol {
-    padding-left: 20px;
+    background: #e4e2da;
+    border: 1px solid #b7b5ab;
+    color: #3a3934;
   }
   #result-box {
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1rem;
+    font-weight: 800;
     text-align: center;
-    padding: 10px;
+    padding: 8px;
+    color: #a3351a;
+    background: #fff8e6;
+    border: 1px dashed #c6c4ba;
+    margin: 6px 0;
   }
   #status-line {
     text-align: center;
-    color: #666;
-    font-size: 0.9rem;
+    color: #8a887f;
+    font-size: 0.75rem;
+    margin: 4px 0 8px;
   }
   .ad-block {
     border: 1px solid #ccc;
-    background: #f2f2f2;
+    background: #f2f2ee;
     text-align: center;
     padding: 14px 8px;
     margin: 18px 0;
@@ -62,55 +110,51 @@
     margin-bottom: 8px;
   }
   .ad-block .ad-title {
-    color: #3b6fd4;
+    color: #1a54c4;
     font-size: 0.95rem;
     text-decoration: underline;
     display: block;
     margin-bottom: 4px;
+    font-weight: 600;
   }
   .ad-block .ad-desc {
-    color: #666;
-  }
-  h2 {
-    font-size: 1.05rem;
-    margin: 30px 0 8px;
-  }
-  .intro-text {
-    color: #444;
-    font-size: 0.92rem;
+    color: #777;
   }
   details {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #c6c4ba;
     padding: 8px 0;
   }
   details summary {
     cursor: pointer;
-    font-weight: 600;
-    font-size: 0.92rem;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #262620;
   }
   details p {
-    color: #555;
-    font-size: 0.88rem;
+    color: #6b6a62;
+    font-size: 0.82rem;
     margin: 6px 0 4px;
   }
   footer {
-    margin-top: 32px;
-    padding-top: 16px;
-    border-top: 1px solid #ddd;
-    font-size: 0.75rem;
-    color: #999;
+    margin-top: 28px;
+    padding-top: 14px;
+    border-top: 1px solid #b7b5ab;
+    font-size: 0.7rem;
+    color: #9a988f;
     text-align: center;
   }
   footer .tool-links {
     margin-bottom: 10px;
   }
   footer .tool-links span {
-    color: #3b6fd4;
+    color: #1a54c4;
     text-decoration: underline;
     margin: 0 6px;
     display: inline-block;
   }
 </style>
+
+<div class="page-box">
 
 <h1>Estrattore Casuale</h1>
 <p>Inserisci gli elementi e avvia l'estrazione</p>
@@ -125,21 +169,23 @@
   Strumento gratuito per estrarre in modo casuale uno o più elementi da un elenco: nomi, numeri, parole o qualsiasi testo. Utile per sorteggi tra amici, assegnazione di compiti, scelta di un vincitore o qualunque decisione tu voglia lasciare al caso.
 </p>
 
-<p>
-  <input type="text" id="new-item" placeholder="Scrivi un elemento..." autocomplete="off" />
-  <button id="add-btn" type="button">Aggiungi</button>
-</p>
-<ul id="chip-list"></ul>
+<div class="tool-box">
+  <p>
+    <input type="text" id="new-item" placeholder="Scrivi un elemento..." autocomplete="off" />
+    <button id="add-btn" type="button">Aggiungi</button>
+  </p>
+  <ul id="chip-list"></ul>
 
-<hr />
+  <hr />
 
-<p id="result-box">Nessuna estrazione ancora</p>
-<p><button id="draw-btn" type="button" disabled>Estrai</button></p>
-<p id="status-line"></p>
-<p><button id="reset-btn" type="button">Nuova estrazione</button></p>
+  <p id="result-box">Nessuna estrazione ancora</p>
+  <p><button id="draw-btn" type="button" disabled>Estrai</button></p>
+  <p id="status-line"></p>
+  <p><button id="reset-btn" type="button">Nuova estrazione</button></p>
 
-<hr id="history-sep" style="display:none;" />
-<ol id="history-list"></ol>
+  <hr id="history-sep" style="display:none;" />
+  <ol id="history-list"></ol>
+</div>
 
 <h2>Come funziona l'estrazione</h2>
 <p class="intro-text">
@@ -179,6 +225,8 @@
   </div>
   <p>© 2026 Estrattore Casuale · Termini e Condizioni · Privacy Policy · Contatti</p>
 </footer>
+
+</div>
 
 <script>
 (function () {

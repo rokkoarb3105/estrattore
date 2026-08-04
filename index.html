@@ -1,70 +1,105 @@
-<title>Estrattore Casuale</title>
+<title>Estrattore Casuale Online Gratis</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
+  * { box-sizing: border-box; }
   body {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background: #fbf3c9;
     margin: 0;
-    padding: 16px 10px 40px;
-    line-height: 1.5;
+    padding: 0 0 30px;
+    line-height: 1.45;
+    font-size: 13px;
+  }
+  .site-header {
+    background: #33475b;
+    color: #dfe4ea;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+  .site-header .brand {
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .site-header .nav span {
+    margin-left: 8px;
+    color: #b9c2cc;
+  }
+  .breadcrumb {
+    font-size: 10px;
+    color: #8a8266;
+    padding: 5px 10px;
   }
   .page-box {
-    max-width: 440px;
+    max-width: 460px;
     margin: 0 auto;
     background: #d9d9d6;
     border: 1px solid #aaa9a2;
-    padding: 14px 14px 18px;
+    padding: 10px 10px 14px;
   }
   h1 {
-    font-size: 1.35rem;
-    margin: 0 0 4px;
+    font-size: 1.15rem;
+    margin: 0 0 2px;
     color: #1a1a1a;
     font-weight: 800;
   }
   h1 + p {
     color: #55534c;
-    font-size: 0.85rem;
-    margin: 0 0 14px;
+    font-size: 0.75rem;
+    margin: 0 0 6px;
   }
+  .rating {
+    font-size: 0.7rem;
+    color: #55534c;
+    margin: 0 0 10px;
+  }
+  .rating .stars { color: #d99a1f; letter-spacing: 1px; }
   h2 {
-    font-size: 0.98rem;
-    margin: 26px 0 8px;
+    font-size: 0.85rem;
+    margin: 20px 0 6px;
     color: #262620;
     font-weight: 700;
   }
   .intro-text {
     color: #55534c;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
+  }
+  .intro-text ul {
+    margin: 4px 0;
+    padding-left: 16px;
   }
   .tool-box {
     background: #efeee9;
     border: 1px solid #c6c4ba;
-    padding: 10px;
-    font-size: 0.82rem;
+    padding: 8px;
+    font-size: 0.72rem;
   }
   .tool-box input[type="text"] {
-    font-size: 0.82rem;
-    padding: 5px 6px;
-    width: 55%;
+    font-size: 0.72rem;
+    padding: 4px 5px;
+    width: 52%;
   }
   .tool-box button {
-    font-size: 0.8rem;
-    padding: 5px 9px;
+    font-size: 0.7rem;
+    padding: 4px 8px;
     cursor: pointer;
   }
   .tool-box ul, .tool-box ol {
-    padding-left: 16px;
-    margin: 6px 0;
+    padding-left: 14px;
+    margin: 5px 0;
     color: #3a3934;
   }
   .tool-box hr {
     border: none;
     border-top: 1px solid #c6c4ba;
-    margin: 8px 0;
+    margin: 6px 0;
   }
   #draw-btn {
     width: 100%;
-    padding: 7px;
+    padding: 6px;
     font-weight: bold;
     background: #c8501f;
     color: #fff;
@@ -77,92 +112,172 @@
     color: #3a3934;
   }
   #result-box {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 800;
     text-align: center;
-    padding: 8px;
+    padding: 6px;
     color: #a3351a;
     background: #fff8e6;
     border: 1px dashed #c6c4ba;
-    margin: 6px 0;
+    margin: 5px 0;
   }
   #status-line {
     text-align: center;
     color: #8a887f;
-    font-size: 0.75rem;
-    margin: 4px 0 8px;
+    font-size: 0.68rem;
+    margin: 3px 0 6px;
   }
-  .ad-block {
-    border: 1px solid #ccc;
-    background: #f2f2ee;
-    text-align: center;
-    padding: 14px 8px;
-    margin: 18px 0;
-    color: #888;
-    font-size: 0.75rem;
+
+  .ad-image {
+    position: relative;
+    height: 84px;
+    margin: 14px 0;
+    border: 1px solid #b9b7ac;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
   }
-  .ad-block .ad-label {
-    display: block;
-    font-size: 0.65rem;
+  .ad-image .ad-corner {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    background: rgba(0,0,0,0.35);
+    color: #fff;
+    font-size: 8px;
     text-transform: uppercase;
+    padding: 1px 4px;
     letter-spacing: 0.05em;
-    color: #aaa;
-    margin-bottom: 8px;
   }
-  .ad-block .ad-title {
+  .ad-image-1 {
+    background:
+      radial-gradient(circle at 20% 40%, rgba(255,255,255,0.35), transparent 45%),
+      linear-gradient(135deg, #ff7a45, #d92b8f 60%, #6a1fb0);
+  }
+  .ad-image-2 {
+    background:
+      radial-gradient(circle at 80% 30%, rgba(255,255,255,0.3), transparent 50%),
+      linear-gradient(120deg, #17a673, #0b6e91 65%, #0a3f6e);
+  }
+  .ad-image .ad-copy {
+    padding: 0 74px 0 12px;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+  .ad-image .ad-copy small {
+    display: block;
+    font-weight: 400;
+    font-size: 9px;
+    opacity: 0.9;
+  }
+  .ad-image .ad-badge {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ffd400;
+    color: #3a2900;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 5px 8px;
+    border-radius: 3px;
+    text-shadow: none;
+  }
+
+  .ad-text-unit {
+    border: 1px solid #d7d2b8;
+    background: #fdfcf5;
+    padding: 8px 10px;
+    margin: 16px 0;
+    font-size: 0.72rem;
+  }
+  .ad-text-unit .ad-tag {
+    font-size: 9px;
+    color: #999;
+    border: 1px solid #ddd;
+    padding: 0 3px;
+    margin-right: 5px;
+  }
+  .ad-text-unit .ad-t {
     color: #1a54c4;
-    font-size: 0.95rem;
+    font-weight: 600;
     text-decoration: underline;
     display: block;
-    margin-bottom: 4px;
-    font-weight: 600;
+    margin: 3px 0 1px;
   }
-  .ad-block .ad-desc {
-    color: #777;
+  .ad-text-unit .ad-u {
+    color: #1a7a3c;
+    display: block;
+    font-size: 0.68rem;
   }
+  .ad-text-unit .ad-d {
+    color: #555;
+    display: block;
+    margin-top: 2px;
+  }
+
   details {
     border-bottom: 1px solid #c6c4ba;
-    padding: 8px 0;
+    padding: 6px 0;
   }
   details summary {
     cursor: pointer;
     font-weight: 700;
-    font-size: 0.88rem;
+    font-size: 0.76rem;
     color: #262620;
   }
   details p {
     color: #6b6a62;
-    font-size: 0.82rem;
-    margin: 6px 0 4px;
+    font-size: 0.72rem;
+    margin: 5px 0 3px;
+  }
+  .updated-line {
+    font-size: 0.65rem;
+    color: #9a988f;
+    margin-top: 14px;
   }
   footer {
-    margin-top: 28px;
-    padding-top: 14px;
+    margin-top: 20px;
+    padding-top: 12px;
     border-top: 1px solid #b7b5ab;
-    font-size: 0.7rem;
+    font-size: 0.62rem;
     color: #9a988f;
     text-align: center;
   }
   footer .tool-links {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   footer .tool-links span {
     color: #1a54c4;
     text-decoration: underline;
-    margin: 0 6px;
+    margin: 0 5px;
     display: inline-block;
   }
+  footer .disclaimer {
+    max-width: 380px;
+    margin: 8px auto 0;
+    color: #a8a69c;
+  }
 </style>
+
+<div class="site-header">
+  <span class="brand">ToolFacile.it</span>
+  <span class="nav"><span>Home</span><span>Calcolatori</span><span>Convertitori</span><span>Generatori</span><span>Contatti</span></span>
+</div>
+<div class="breadcrumb">Home &gt; Strumenti &gt; Estrattore Casuale</div>
 
 <div class="page-box">
 
 <h1>Estrattore Casuale</h1>
 <p>Inserisci gli elementi e avvia l'estrazione</p>
+<p class="rating"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span> 4,3 su 5 &mdash; 2.187 valutazioni</p>
 
-<div class="ad-block">
-  <span class="ad-label">Pubblicità</span>
-  <span class="ad-title">Confronta le migliori offerte vicino a te</span>
-  <span class="ad-desc">Risparmia fino al 40% sui prodotti che usi ogni giorno.</span>
+<div class="ad-image ad-image-1">
+  <span class="ad-corner">Pubblicità</span>
+  <span class="ad-copy">Confronta le offerte vicino a te<small>Risparmia fino al 40% ogni mese</small></span>
+  <span class="ad-badge">SCOPRI</span>
 </div>
 
 <p class="intro-text">
@@ -192,10 +307,32 @@
   Ogni volta che premi "Estrai", l'algoritmo assegna a tutti gli elementi ancora presenti la stessa probabilità di uscita, utilizzando un generatore di numeri pseudo-casuali (PRNG) integrato nel browser. L'elemento estratto viene rimosso dal gruppo, così ogni estrazione successiva avviene solo tra gli elementi rimanenti, garantendo un sorteggio senza ripetizioni fino all'esaurimento della lista.
 </p>
 
-<div class="ad-block">
-  <span class="ad-label">Pubblicità</span>
-  <span class="ad-title">Scarica l'app e ricevi un buono sconto</span>
-  <span class="ad-desc">Offerta a tempo limitato, disponibile in Italia.</span>
+<div class="ad-text-unit">
+  <span class="ad-tag">Annuncio</span>
+  <span class="ad-t">Corsi online scontati del 60% questa settimana</span>
+  <span class="ad-u">www.corsi-esempio.it/offerte</span>
+  <span class="ad-d">Migliaia di corsi in italiano. Certificato incluso. Accesso immediato dopo l'iscrizione.</span>
+</div>
+
+<h2>Perché usare un estrattore casuale online</h2>
+<p class="intro-text">
+  Un estrattore casuale è utile ogni volta che vuoi affidare una scelta alla sorte in modo imparziale, evitando favoritismi o discussioni infinite. Ecco alcuni degli utilizzi più comuni tra chi usa questo strumento:
+</p>
+<p class="intro-text">
+  <ul>
+    <li>Sorteggi tra amici, colleghi o familiari</li>
+    <li>Assegnazione di turni, compiti o mansioni</li>
+    <li>Scelta del ristorante o del film della serata</li>
+    <li>Estrazione di premi per eventi, fiere e giveaway</li>
+    <li>Selezione casuale di un vincitore tra i partecipanti</li>
+    <li>Decisioni di gruppo quando non si trova un accordo</li>
+  </ul>
+</p>
+
+<div class="ad-image ad-image-2">
+  <span class="ad-corner">Pubblicità</span>
+  <span class="ad-copy">Scarica l'app e ricevi un buono sconto<small>Offerta a tempo limitato, disponibile in Italia</small></span>
+  <span class="ad-badge">INSTALLA</span>
 </div>
 
 <h2>Domande frequenti</h2>
@@ -215,6 +352,24 @@
   <summary>Posso usare l'estrattore da smartphone?</summary>
   <p>Sì, la pagina è ottimizzata per la visualizzazione da mobile e funziona su qualsiasi browser aggiornato.</p>
 </details>
+<details>
+  <summary>Un elemento già estratto può uscire di nuovo?</summary>
+  <p>No, ogni elemento estratto viene automaticamente rimosso dal gruppo e non può più essere selezionato nella stessa sessione.</p>
+</details>
+<details>
+  <summary>Quanti elementi posso inserire al massimo?</summary>
+  <p>Non c'è un limite tecnico imposto dallo strumento; per una migliore leggibilità consigliamo comunque di non superare qualche decina di voci.</p>
+</details>
+<details>
+  <summary>Lo strumento funziona anche con connessione lenta?</summary>
+  <p>Sì, una volta caricata la pagina l'estrazione avviene interamente nel browser, quindi continua a funzionare anche con connessione instabile.</p>
+</details>
+<details>
+  <summary>Come faccio a ripetere l'estrazione con gli stessi elementi?</summary>
+  <p>Premi "Nuova estrazione": l'elenco resta invariato e potrai ripetere il sorteggio da capo in qualsiasi momento.</p>
+</details>
+
+<p class="updated-line">Ultimo aggiornamento: 28 luglio 2026</p>
 
 <footer>
   <div class="tool-links">
@@ -223,7 +378,8 @@
     <span>Generatore Password</span>
     <span>Calcolo IBAN</span>
   </div>
-  <p>© 2026 Estrattore Casuale · Termini e Condizioni · Privacy Policy · Contatti</p>
+  <p>© 2026 Estrattore Casuale &middot; Termini e Condizioni &middot; Privacy Policy &middot; Contatti</p>
+  <p class="disclaimer">I contenuti di questa pagina hanno esclusivamente scopo informativo e non costituiscono consulenza di alcun tipo. Il gestore del sito non si assume responsabilità per l'uso dei risultati ottenuti tramite gli strumenti presenti.</p>
 </footer>
 
 </div>

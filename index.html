@@ -44,10 +44,86 @@
     color: #666;
     font-size: 0.9rem;
   }
+  .ad-block {
+    border: 1px solid #ccc;
+    background: #f2f2f2;
+    text-align: center;
+    padding: 14px 8px;
+    margin: 18px 0;
+    color: #888;
+    font-size: 0.75rem;
+  }
+  .ad-block .ad-label {
+    display: block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #aaa;
+    margin-bottom: 8px;
+  }
+  .ad-block .ad-title {
+    color: #3b6fd4;
+    font-size: 0.95rem;
+    text-decoration: underline;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .ad-block .ad-desc {
+    color: #666;
+  }
+  h2 {
+    font-size: 1.05rem;
+    margin: 30px 0 8px;
+  }
+  .intro-text {
+    color: #444;
+    font-size: 0.92rem;
+  }
+  details {
+    border-bottom: 1px solid #ddd;
+    padding: 8px 0;
+  }
+  details summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+  details p {
+    color: #555;
+    font-size: 0.88rem;
+    margin: 6px 0 4px;
+  }
+  footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #ddd;
+    font-size: 0.75rem;
+    color: #999;
+    text-align: center;
+  }
+  footer .tool-links {
+    margin-bottom: 10px;
+  }
+  footer .tool-links span {
+    color: #3b6fd4;
+    text-decoration: underline;
+    margin: 0 6px;
+    display: inline-block;
+  }
 </style>
 
 <h1>Estrattore Casuale</h1>
 <p>Inserisci gli elementi e avvia l'estrazione</p>
+
+<div class="ad-block">
+  <span class="ad-label">Pubblicità</span>
+  <span class="ad-title">Confronta le migliori offerte vicino a te</span>
+  <span class="ad-desc">Risparmia fino al 40% sui prodotti che usi ogni giorno.</span>
+</div>
+
+<p class="intro-text">
+  Strumento gratuito per estrarre in modo casuale uno o più elementi da un elenco: nomi, numeri, parole o qualsiasi testo. Utile per sorteggi tra amici, assegnazione di compiti, scelta di un vincitore o qualunque decisione tu voglia lasciare al caso.
+</p>
 
 <p>
   <input type="text" id="new-item" placeholder="Scrivi un elemento..." autocomplete="off" />
@@ -64,6 +140,45 @@
 
 <hr id="history-sep" style="display:none;" />
 <ol id="history-list"></ol>
+
+<h2>Come funziona l'estrazione</h2>
+<p class="intro-text">
+  Ogni volta che premi "Estrai", l'algoritmo assegna a tutti gli elementi ancora presenti la stessa probabilità di uscita, utilizzando un generatore di numeri pseudo-casuali (PRNG) integrato nel browser. L'elemento estratto viene rimosso dal gruppo, così ogni estrazione successiva avviene solo tra gli elementi rimanenti, garantendo un sorteggio senza ripetizioni fino all'esaurimento della lista.
+</p>
+
+<div class="ad-block">
+  <span class="ad-label">Pubblicità</span>
+  <span class="ad-title">Scarica l'app e ricevi un buono sconto</span>
+  <span class="ad-desc">Offerta a tempo limitato, disponibile in Italia.</span>
+</div>
+
+<h2>Domande frequenti</h2>
+<details>
+  <summary>L'estrazione è davvero casuale?</summary>
+  <p>Sì, ogni elemento inserito ha la stessa probabilità di essere estratto ad ogni turno, indipendentemente dall'ordine in cui è stato scritto o dalla lunghezza del testo.</p>
+</details>
+<details>
+  <summary>Posso inserire tutti gli elementi che voglio?</summary>
+  <p>Sì, non c'è un limite: aggiungi un elemento alla volta prima di iniziare l'estrazione.</p>
+</details>
+<details>
+  <summary>I miei dati vengono salvati da qualche parte?</summary>
+  <p>No. Tutta l'elaborazione avviene localmente nel tuo browser: nessun dato viene inviato o conservato su server esterni.</p>
+</details>
+<details>
+  <summary>Posso usare l'estrattore da smartphone?</summary>
+  <p>Sì, la pagina è ottimizzata per la visualizzazione da mobile e funziona su qualsiasi browser aggiornato.</p>
+</details>
+
+<footer>
+  <div class="tool-links">
+    <span>Calcolo Codice Fiscale</span>
+    <span>Conversione Basi Numeriche</span>
+    <span>Generatore Password</span>
+    <span>Calcolo IBAN</span>
+  </div>
+  <p>© 2026 Estrattore Casuale · Termini e Condizioni · Privacy Policy · Contatti</p>
+</footer>
 
 <script>
 (function () {

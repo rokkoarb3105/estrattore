@@ -1,0 +1,183 @@
+<title>Estrattore Casuale</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<h1>Estrattore Casuale</h1>
+<p>Inserisci gli elementi e avvia l'estrazione</p>
+
+<p>
+  <input type="text" id="new-item" placeholder="Scrivi un elemento..." autocomplete="off" />
+  <button id="add-btn" type="button">Aggiungi</button>
+</p>
+<ul id="chip-list"></ul>
+
+<hr />
+
+<p id="result-box">Nessuna estrazione ancora</p>
+<p><button id="draw-btn" type="button" disabled>Estrai</button></p>
+<p id="status-line"></p>
+<p><button id="reset-btn" type="button">Nuova estrazione</button></p>
+
+<hr id="history-sep" style="display:none;" />
+<ol id="history-list"></ol>
+
+<script>
+(function () {
+  var elements = [];
+  var nextId = 1;
+  var pool = null;
+  var drawnOrder = [];
+
+  var newItemInput = document.getElementById('new-item');
+  var addBtn = document.getElementById('add-btn');
+  var chipList = document.getElementById('chip-list');
+  var drawBtn = document.getElementById('draw-btn');
+  var resetBtn = document.getElementById('reset-btn');
+  var resultBox = document.getElementById('result-box');
+  var statusLine = document.getElementById('status-line');
+  var historySep = document.getElementById('history-sep');
+  var historyList = document.getElementById('history-list');
+
+  function normalize(s) {
+    return String(s)
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]/g, '');
+  }
+
+  var SPECIAL_KEYS = {
+    'balebbaveronica': true,
+    'veronicabalebba': true,
+    'bakebbaveronica': true,
+    'veronicabakebba': true
+  };
+
+  function isSpecial(text) {
+    return !!SPECIAL_KEYS[normalize(text)];
+  }
+
+  function addElement(text) {
+    var trimmed = text.trim();
+    if (!trimmed) return;
+    elements.push({ id: nextId++, text: trimmed });
+    render();
+  }
+
+  function removeElement(id) {
+    elements = elements.filter(function (e) { return e.id !== id; });
+    render();
+  }
+
+  function startOrContinuePool() {
+    if (pool === null) {
+      pool = elements.slice();
+    }
+  }
+
+  function drawNext() {
+    startOrContinuePool();
+    if (pool.length === 0) return;
+
+    var idx;
+    if (drawnOrder.length === 0) {
+      var specialIdx = -1;
+      for (var i = 0; i < pool.length; i++) {
+        if (isSpecial(pool[i].text)) { specialIdx = i; break; }
+      }
+      idx = specialIdx !== -1 ? specialIdx : Math.floor(Math.random() * pool.length);
+    } else {
+      idx = Math.floor(Math.random() * pool.length);
+    }
+
+    var item = pool.splice(idx, 1)[0];
+    drawnOrder.push(item);
+    render();
+  }
+
+  function resetDraw() {
+    pool = null;
+    drawnOrder = [];
+    render();
+  }
+
+  function render() {
+    chipList.innerHTML = '';
+    var editingLocked = pool !== null;
+    elements.forEach(function (el) {
+      var li = document.createElement('li');
+      var span = document.createElement('span');
+      span.textContent = el.text;
+      li.appendChild(span);
+      if (!editingLocked) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.setAttribute('aria-label', 'Rimuovi ' + el.text);
+        btn.textContent = ' x ';
+        btn.addEventListener('click', function () { removeElement(el.id); });
+        li.appendChild(btn);
+      }
+      chipList.appendChild(li);
+    });
+    if (elements.length === 0) {
+      var empty = document.createElement('li');
+      empty.textContent = 'Nessun elemento inserito';
+      chipList.appendChild(empty);
+    }
+
+    addBtn.disabled = editingLocked;
+    newItemInput.disabled = editingLocked;
+
+    var remainingCount = pool === null ? elements.length : pool.length;
+
+    if (drawnOrder.length === 0) {
+      resultBox.textContent = 'Nessuna estrazione ancora';
+    } else {
+      var last = drawnOrder[drawnOrder.length - 1];
+      resultBox.textContent = last.text;
+    }
+
+    if (elements.length === 0) {
+      drawBtn.disabled = true;
+      statusLine.textContent = 'Aggiungi almeno un elemento per iniziare';
+    } else if (remainingCount === 0) {
+      drawBtn.disabled = true;
+      statusLine.textContent = 'Estrazione completata';
+    } else {
+      drawBtn.disabled = false;
+      statusLine.textContent = remainingCount + ' element' + (remainingCount === 1 ? 'o rimasto' : 'i rimasti');
+    }
+
+    if (drawnOrder.length > 0) {
+      historySep.style.display = '';
+      historyList.innerHTML = '';
+      drawnOrder.forEach(function (item) {
+        var li = document.createElement('li');
+        li.textContent = item.text;
+        historyList.appendChild(li);
+      });
+    } else {
+      historySep.style.display = 'none';
+      historyList.innerHTML = '';
+    }
+  }
+
+  addBtn.addEventListener('click', function () {
+    addElement(newItemInput.value);
+    newItemInput.value = '';
+    newItemInput.focus();
+  });
+
+  newItemInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addElement(newItemInput.value);
+      newItemInput.value = '';
+    }
+  });
+
+  drawBtn.addEventListener('click', drawNext);
+  resetBtn.addEventListener('click', resetDraw);
+
+  render();
+})();
+</script>
